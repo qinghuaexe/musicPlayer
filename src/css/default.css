@@ -44,10 +44,12 @@ body{
 .songList{
   text-align: left;
   border-top: 1px solid #999;
+ 
 }
 .songList > li{
   border-bottom: 1px solid #ddd; 
   padding: 10px; 
+  
 }
 .songList > li.active{
   background: #d4d4d4;
