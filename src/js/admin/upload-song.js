@@ -43,7 +43,6 @@
                     },
                     BeforeUpload:  (up, file)=> {
                         // 每个文件上传前,处理相关的事情
-                        return false
                         window.eventHub.emit('beforeUpload')
                         if(this.model.data.status === 'closed'){
                             return false
@@ -56,6 +55,8 @@
                         // 每个文件上传时,处理相关的事情
                     },
                     FileUploaded: (up, file, info) => {
+                        window.eventHub.emit('afterUpload')
+                        this.model.data.status = 'open'
                         var domain = up.getOption('domain')
                         var response = JSON.parse(info.response)
                         var sourceLink =
@@ -64,8 +65,7 @@
                             url: sourceLink,
                             name: response.key
                         })
-                        window.eventHub.emit('afterUpload')
-                        this.model.data.status === 'open'
+                       
                     },
                     Error: function (up, err, errTip) {
                         //上传出错时,处理相关的事情
