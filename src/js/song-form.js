@@ -117,7 +117,6 @@
             })
             this.model.update(data)
             .then(()=>{
-                alert('更新成功')
                 window.eventHub.emit('update',JSON.parse(JSON.stringify(this.model.data)))
             })   
         },

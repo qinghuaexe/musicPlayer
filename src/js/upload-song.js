@@ -1,3 +1,4 @@
+
 {
     let view = {
         el:'.uploadArea',
@@ -6,7 +7,11 @@
         },
         
     }
-    let model = {}
+    let model = {
+        data:{
+            status:'open'
+        }
+    }
     let controller ={
         init(view,model){
             this.view =view
@@ -31,18 +36,26 @@
                 chunk_size: '4mb', //分块上传时，每片的体积
                 auto_start: true, //选择文件后自动上传，若关闭需要自己绑定事件触发上传
                 init: {
-                    FilesAdded: function (up, files) {
+                    FilesAdded:  (up, files) => {
                         plupload.each(files, function (file) {
                             // 文件添加进队列后,处理相关的事情
                         })
                     },
-                    BeforeUpload: function (up, file) {
+                    BeforeUpload:  (up, file)=> {
                         // 每个文件上传前,处理相关的事情
+                        return false
+                        window.eventHub.emit('beforeUpload')
+                        if(this.model.data.status === 'closed'){
+                            return false
+                        }else{
+                           this.model.data.status = 'closed'
+                            return true
+                        } 
                     },
                     UploadProgress: function (up, file) {
                         // 每个文件上传时,处理相关的事情
                     },
-                    FileUploaded: function (up, file, info) {
+                    FileUploaded: (up, file, info) => {
                         var domain = up.getOption('domain')
                         var response = JSON.parse(info.response)
                         var sourceLink =
@@ -51,6 +64,8 @@
                             url: sourceLink,
                             name: response.key
                         })
+                        window.eventHub.emit('afterUpload')
+                        this.model.data.status === 'open'
                     },
                     Error: function (up, err, errTip) {
                         //上传出错时,处理相关的事情
