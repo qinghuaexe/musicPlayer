@@ -73,11 +73,8 @@
             });
         },
         create(data) {
-            // 声明类型
             var Song = AV.Object.extend('Song');
-            // 新建对象
             var Song = new Song();
-            // 设置名称
             Song.set('name', data.name);
             Song.set('singer', data.singer);
             Song.set('url', data.url);

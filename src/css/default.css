@@ -1,61 +1,76 @@
-*{margin:0;padding:0;}
-*{box-sizing: border-box;}
-*::after{box-sizing: border-box;}
-*::before{box-sizing: border-box;}
-ul,ol{ list-style:none; }
-a{color:inherit; text-decoration: none;}
-input{font: inherit;}
+* {
+  margin: 0;
+  padding: 0;
+}
+* {
+  box-sizing: border-box;
+}
+*::after {
+  box-sizing: border-box;
+}
+*::before {
+  box-sizing: border-box;
+}
+ul,
+ol {
+  list-style: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+input {
+  font: inherit;
+}
 
-body{
+body {
   font-size: 12px;
   line-height: 1.5;
 }
 
-
 /* layout */
 
-.page{
+.page {
   display: flex;
   height: 100vh;
 }
-.page > aside{
+.page > aside {
   width: 200px;
 }
-.page > main{
+.page > main {
   flex-grow: 1;
   padding-left: 20px;
 }
 
 /* aside */
-.page > aside{
+.page > aside {
   display: flex;
   flex-direction: column;
 }
-.newSong{
+.newSong {
   text-align: center;
   padding: 10px;
 }
-.newSong.active{
+.newSong.active {
   background: #d4d4d4;
 }
-#songList-container{
+#songList-container {
   flex-grow: 1;
 }
-.songList{
+.songList {
   text-align: left;
   border-top: 1px solid #999;
- 
 }
-.songList > li{
-  border-bottom: 1px solid #ddd; 
-  padding: 10px; 
-  
+.songList > li {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
 }
-.songList > li.active{
+.songList > li.active {
   background: #d4d4d4;
 }
-.uploadArea{}
-.draggable{
+.uploadArea {
+}
+.draggable {
   text-align: center;
   padding: 20px;
   border-radius: 4px;
@@ -66,41 +81,41 @@ body{
   width: 200px;
   flex-direction: column;
 }
-.clickable{
+.clickable {
   cursor: pointer;
 }
 
 /* main */
 
-.page > main{
+.page > main {
   background: #d4d4d4;
 }
 .form {
   font-size: 14px;
 }
-.form > .row{
+.form > .row {
   margin: 20px 0;
   display: flex;
 }
-.form > .row > label{
+.form > .row > label {
   width: 4em;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   margin-right: 5px;
 }
-.form > .row.actions{
+.form > .row.actions {
   margin-left: calc(4em + 5px);
 }
-.form input[type=text]{
+.form input[type="text"] {
   padding: 3px 8px;
   border-radius: 5px;
   border: 1px solid #ddd;
   height: 30px;
 }
-.form input[type=button],
-.form input[type=submit],
-.form button{
+.form input[type="button"],
+.form input[type="submit"],
+.form button {
   height: 30px;
   padding-left: 10px;
   padding-right: 10px;
@@ -109,12 +124,42 @@ body{
 .page > main {
   padding-top: 20px;
 }
-.page > main > .form{
-
+.page > main > .form {
 }
-
-
-
-
-
-
+@keyframes loading {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.1);
+  }
+}
+.site-loading.active {
+  visibility: visible;
+}
+.site-loading {
+  visibility: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  /* 浮层div不影响用户点击事件 */
+  pointer-events: none;
+}
+.site-loading::before {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 100px;
+  background: green;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+  border-radius: 50px;
+  animation: loading 1s infinite alternate-reverse linear;
+}

@@ -8,6 +8,7 @@
       if($(this.el).find('audio').attr('src') !== song.url){
         let audio = $(this.el).find('audio').attr('src',song.url).get(0)
         audio.onended = ()=>{window.eventHub.emit('songEnd')}
+        console.log(audio.currentTime)
         audio.ontimeupdate = ()=>{this.showLyric(audio.currentTime)}
       } 
       if(status ==='playing'){

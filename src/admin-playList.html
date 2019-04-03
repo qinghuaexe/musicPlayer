@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./css/default.css" />
+    <title>歌单管理页面</title>
+  </head>
+
+  <body>
+    <div class="playlistForm-wrapper">
+      <h1>创建歌单</h1>
+      <form class="playlistForm">
+        <div class="row">
+          <label>歌单名</label>
+          <input type="text" name="name">
+        </div>
+        <div class="row">
+          <label>歌单简介</label><textarea name="summary"  cols="30" rows="10"></textarea>
+        </div>
+        <div class="row">
+          <button type="submit">创建</button>
+        </div>
+      </form>
+    </div>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
+    <script src="./js/initializers/av.js"></script>
+    <script src="./js/admin/event-hub.js"></script>
+    <script>
+      {
+        let view ={
+          el:'.playlistForm-wrapper',
+          init(){
+            this.$el = $(this.el)
+          }
+        }
+        let model={
+          create(data){
+            $.post
+          }
+        }
+        let controller ={
+          init(view,model){
+            this.view = view
+            this.view.init()
+            this.model = model
+            this.bindEvent()
+          },
+          bindEvent(){
+            this.view.$el.on('submit','form',(e)=>{
+              e.preventDefault();
+              let form = this.view.$el.find('form').get(0)
+              console.log(form.name.value)
+              console.log(form.summary.value)
+            })
+          }
+        }
+        controller.init(view,model)
+      }
+      /* var Song = AV.Object.extend('Song');
+      var song = new Song();
+      song.set('name','2222')
+
+      var Playlist = AV.Object.extend("Playlist");
+      var playlist = new Playlist();
+        playlist.set("name", '测试标题222');
+        playlist.set("summary", '测试简介222');
+        song.set('dependent',playlist)
+        song.save().then(
+          (newPlaylist)=> {
+          console.log(newPlaylist)
+        },
+        error => {
+          console.error(error);
+        }
+      ); */
+    </script>
+  </body>
+</html>
